@@ -440,7 +440,7 @@ $$stats{"dkimfail"}
 $$stats{"dkimsigned"}
 $$stats{"rejrbl"}
 $$stats{"greylistdefer"}
-$$stats{"spfpass"} 
+$$stats{"spfpass"}
 $$stats{"spfneutral"}
 $$stats{"spffailed"}
 EOF
