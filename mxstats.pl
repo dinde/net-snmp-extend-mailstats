@@ -34,15 +34,16 @@ use strict;
 #          there, too.
 
 # Select your MTA and the log files to be parsed
+# Exim example
 #my $mta = "exim";
 #my $mainlog = "/var/log/exim4/mainlog";
 #my $mainlogold = "/var/log/exim4/mainlog.1";
-#my $conf = "/var/run/mxstats-current-state";
-#my $statsfile = "/tmp/mxstats";
-#my $archive = "/var/log/mxstats";
+# Postfix example
 my $mta = "postfix";
 my $mainlog = "/var/log/mail.log";
 my $mainlogold = "/var/log/mail.log.1";
+
+# States/Logs files
 my $conf = "/var/run/mxstats-current-state";
 my $statsfile = "/tmp/mxstats";
 my $archive = "/var/log/mxstats";
