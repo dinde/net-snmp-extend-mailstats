@@ -394,8 +394,7 @@ sub read_queue
 		return 1;
 	} elsif ($mta =~ /^postfix/) {
 		my $queued = 0;
-		open (MAILQ, "/usr/bin/mailq|");
-		my $stats = shift;
+		open MAILQ, "/usr/bin/mailq|" or return 0;
 		my @tmpstats="";
 		while (<MAILQ>) {
 			@tmpstats = split(/ /, $_);
@@ -404,7 +403,7 @@ sub read_queue
 			}
 		}
 		chomp(@tmpstats);
-		my $queued = $tmpstats[4];
+		$stats{"$queued"} = $tmpstats[4];
 	}
 	close Q;
 	return 1;
