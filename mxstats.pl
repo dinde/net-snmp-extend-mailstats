@@ -1,6 +1,8 @@
 #! /usr/bin/perl
 #
-# MX stats grabber for NET-SNMP
+# Mailstats parser extend for NET-SNMP
+# Supports: Exim/Postfix/Sendmail/Scanners/DKIM/SPF
+# Dovecot/courier/cyrus/zarafa-gateway
 #
 # Based on a script by Matthew Newton
 ##
