@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<datacollection-group name="Mailstats">
+    <resourceType name="mailstats" label="Mail Statistics" resourceLabel="Mailstats">
+      <persistenceSelectorStrategy class="org.opennms.netmgt.collectd.PersistAllSelectorStrategy"/>
+      <storageStrategy class="org.opennms.netmgt.dao.support.IndexStorageStrategy"/>
+    </resourceType>
+
+      <group name="ucd-experimental-mailstats" ifType="ignore">
+        <mibObj oid=".1.3.6.1.4.1.2021.13.69.4.1.2.8.109.120.45.115.116.97.116.115" instance="1" alias="mailstatin"                  type="gauge" />
+        <mibObj oid=".1.3.6.1.4.1.2021.13.69.4.1.2.8.109.120.45.115.116.97.116.115" instance="2" alias="mailstatout"                 type="gauge" />
+        <mibObj oid=".1.3.6.1.4.1.2021.13.69.4.1.2.8.109.120.45.115.116.97.116.115" instance="3" alias="mailstatqueued"              type="gauge" />
+        <mibObj oid=".1.3.6.1.4.1.2021.13.69.4.1.2.8.109.120.45.115.116.97.116.115" instance="4" alias="mailstatbounces"             type="gauge" />
+        <mibObj oid=".1.3.6.1.4.1.2021.13.69.4.1.2.8.109.120.45.115.116.97.116.115" instance="5" alias="mailstatlocalsmtp"           type="gauge" />
+        <mibObj oid=".1.3.6.1.4.1.2021.13.69.4.1.2.8.109.120.45.115.116.97.116.115" instance="6" alias="mailstatremotesmtp"          type="gauge" />
+        <mibObj oid=".1.3.6.1.4.1.2021.13.69.4.1.2.8.109.120.45.115.116.97.116.115" instance="7" alias="mailstatremotesmtpdefer"     type="gauge" />
+        <mibObj oid=".1.3.6.1.4.1.2021.13.69.4.1.2.8.109.120.45.115.116.97.116.115" instance="8" alias="mailstatrelaynotpermitted"   type="gauge" />
+        <mibObj oid=".1.3.6.1.4.1.2021.13.69.4.1.2.8.109.120.45.115.116.97.116.115" instance="9" alias="mailstatrejectrcptunknown"   type="gauge" />
+        <mibObj oid=".1.3.6.1.4.1.2021.13.69.4.1.2.8.109.120.45.115.116.97.116.115" instance="10" alias="mailstatunexpectdisconnect" type="gauge" />
+        <mibObj oid=".1.3.6.1.4.1.2021.13.69.4.1.2.8.109.120.45.115.116.97.116.115" instance="11" alias="mailstatblacklisted"        type="gauge" />
+        <mibObj oid=".1.3.6.1.4.1.2021.13.69.4.1.2.8.109.120.45.115.116.97.116.115" instance="12" alias="mailstatsenderverifyfail"   type="gauge" />
+        <mibObj oid=".1.3.6.1.4.1.2021.13.69.4.1.2.8.109.120.45.115.116.97.116.115" instance="13" alias="mailstatrcptreject"         type="gauge" />
+        <mibObj oid=".1.3.6.1.4.1.2021.13.69.4.1.2.8.109.120.45.115.116.97.116.115" instance="14" alias="mailstatauthfail"           type="gauge" />
+        <mibObj oid=".1.3.6.1.4.1.2021.13.69.4.1.2.8.109.120.45.115.116.97.116.115" instance="15" alias="mailstatauthpass"           type="gauge" />
+        <mibObj oid=".1.3.6.1.4.1.2021.13.69.4.1.2.8.109.120.45.115.116.97.116.115" instance="16" alias="mailstatspam"               type="gauge" />
+        <mibObj oid=".1.3.6.1.4.1.2021.13.69.4.1.2.8.109.120.45.115.116.97.116.115" instance="17" alias="mailstatvirus"              type="gauge" />
+        <mibObj oid=".1.3.6.1.4.1.2021.13.69.4.1.2.8.109.120.45.115.116.97.116.115" instance="18" alias="mailstatdkimsuccess"        type="gauge" />
+        <mibObj oid=".1.3.6.1.4.1.2021.13.69.4.1.2.8.109.120.45.115.116.97.116.115" instance="19" alias="mailstatdkimfail"           type="gauge" />
+        <mibObj oid=".1.3.6.1.4.1.2021.13.69.4.1.2.8.109.120.45.115.116.97.116.115" instance="20" alias="mailstatdkimsigned"         type="gauge" />
+        <mibObj oid=".1.3.6.1.4.1.2021.13.69.4.1.2.8.109.120.45.115.116.97.116.115" instance="21" alias="mailstatrejrbl"             type="gauge" />
+        <mibObj oid=".1.3.6.1.4.1.2021.13.69.4.1.2.8.109.120.45.115.116.97.116.115" instance="22" alias="mailstatgreylistdefer"      type="gauge" />
+	<mibObj oid=".1.3.6.1.4.1.2021.13.69.4.1.2.8.109.120.45.115.116.97.116.115" instance="23" alias="mailstatspfpass"            type="gauge" />
+	<mibObj oid=".1.3.6.1.4.1.2021.13.69.4.1.2.8.109.120.45.115.116.97.116.115" instance="24" alias="mailstatspfneutral"         type="gauge" />
+	<mibObj oid=".1.3.6.1.4.1.2021.13.69.4.1.2.8.109.120.45.115.116.97.116.115" instance="25" alias="mailstatspffailed"          type="gauge" />
+      </group>
+
+      <systemDef name="mailstats">
+        <sysoidMask>.1.3.6.1.4.1.8072.3.</sysoidMask>
+        <collect>
+          <includeGroup>ucd-experimental-mailstats</includeGroup>
+        </collect>
+      </systemDef>
+
+</datacollection-group>
+
