@@ -69,4 +69,4 @@ wget -O $OPENNMS_HOME/snmp-graph.properties.d/mailstats-graph.properties https:/
 
 ## Contribution
 This script makes sense if people using it add more and more regexp to fit their needs.
-This will make it naturaly better. Don't hesitate to pull rquests on github.
+This will make it naturaly better. Don't hesitate to request pull on github.
