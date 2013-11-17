@@ -1,0 +1,3 @@
+# Place this file to cron.d path and adjust if needed the generation time to your rrdstep.
+# rrdstep 300 = 5mn, 60 = 1mn
+*/5 * * * * root /usr/sbin/mxstats.pl

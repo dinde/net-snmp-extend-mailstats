@@ -45,7 +45,7 @@ my $mainlogold = "/var/log/mail.log.1";
 
 # States/Logs files
 my $conf = "/var/run/mxstats-current-state";
-my $statsfile = "/tmp/mxstats";
+my $statsfile = "/var/tmp/mxstats";
 my $archive = "/var/log/mxstats";
 
 # The regular expressions will need tweaking below, especially the
@@ -87,7 +87,7 @@ $stats{"out"} = 0;                #.02 out
 $stats{"queued"} = 0;             #.03 Mail in (black) queue
 $stats{"bounces"} = 0;            #.04 Bounced mails
 $stats{"localsmtp"} = 0;	  #.05 Local SMTP delivery - Accepted mails
-$stats{"remotesmtp"} = 0;	  #.06 Remote SMTP delivery - Accepted Relay users
+$stats{"remotesmtp"} = 0;         #.06 Remote SMTP delivery - Accepted Relay users
 $stats{"remotesmtpdefer"} = 0;    #.07 Remote SMTP delivery - Defered mails
 $stats{"relaynotpermitted"} = 0;  #.08 relay not permitted
 $stats{"rejectrcptunknown"} = 0;  #.09 rejected RCPT - User unknown; rejecting
@@ -100,7 +100,7 @@ $stats{"authpass"} = 0;           #.15 Failed SMTP auth sessions
 $stats{"spam"} = 0;               #.16 reported spam by Scanner
 $stats{"virus"} = 0;              #.17 reported virus by Scanner
 $stats{"dkimsuccess"} = 0;        #.18 DKIM succeeded
-$stats{"dkimfail"} = 0;	          #.19 DKIM failed/invalid
+$stats{"dkimfail"} = 0;           #.19 DKIM failed/invalid
 $stats{"dkimsigned"} = 0;         #.20 DKIM signed sent mail
 $stats{"rejrbl"} = 0;             #.21 Found in RBL
 $stats{"greylistdefer"} = 0;      #.22 Greylist defer
