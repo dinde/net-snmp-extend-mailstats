@@ -190,8 +190,8 @@ sub read_log
 			  } elsif ($line =~ /User unknown\; rejecting/) {$$stats{"rejectrcptunknown"}++;
 			  } elsif ($line =~ /rejected by local_scan/) {$$stats{"spam"}++;
 			  } elsif ($line =~ /Blocked by SpamAssassin/) {$$stats{"spam"}++;
-			  } elsif ($line =~ /^\([\w-]+\) (Passed|Blocked) SPAM(?:MY)?\b/) {$$stats{"spam"}++;
-			  } elsif ($line =~ /^\([\w-]+\) (Passed|Not-Delivered)\b.*\bquarantine spam/) {$$stats{"spam"}++;
+			  } elsif ($line =~ /(Passed|Blocked) SPAM(?:MY)?\b/) {$$stats{"spam"}++;
+			  } elsif ($line =~ /(Passed|Not-Delivered)\b.*\bquarantine spam/) {$$stats{"spam"}++;
 			  } elsif ($line =~ /\bcontains spam\b/) {$$stats{"spam"}++;
 			  } elsif ($line =~ /^(?:spamd: )?identified spam/) {$$stats{"spam"}++;
 			  } elsif ($line =~ /spam detected from/) {$$stats{"spam"}++;
@@ -203,8 +203,8 @@ sub read_log
 			  } elsif ($line =~ /\bspam_status\=(?:yes|spam)/) {$$stats{"spam"}++;
 			  } elsif ($line =~ /\[DATA\] Virus/) {$$stats{"virus"}++;
 			  } elsif ($line =~ /Blocked INFECTED/) {$$stats{"virus"}++;
-			  } elsif ($line =~ /^\([\w-]+\) (Passed |Blocked )?INFECTED\b/) {$$stats{"virus"}++;
-			  } elsif ($line =~ /^\([\w-]+\) (Passed |Blocked )?BANNED\b/) {$$stats{"blacklisted"}++;
+			  } elsif ($line =~ /(Passed |Blocked )?INFECTED\b/) {$$stats{"virus"}++;
+			  } elsif ($line =~ /(Passed |Blocked )?BANNED\b/) {$$stats{"blacklisted"}++;
 			  } elsif ($line =~ /^Virus found\b/) {$$stats{"virus"}++;
 			  } elsif ($line =~ /^VIRUS/) {$$stats{"virus"}++;
 			  } elsif ($line =~ /^\*+ Virus\b/) {$$stats{"virus"}++;
@@ -234,7 +234,7 @@ sub read_log
 			  } elsif ($line =~ /554 5\.7\.1/) {$$stats{"blacklisted"}++;
 			  } elsif ($line =~ /Sender verify failed/) {$$stats{"senderverifyfail"}++;
 			  } elsif ($line =~ /remote_smtp/) {$$stats{"remotesmtp"}++;
-			  } elsif ($line =~ /rejected because \S+ is in a black list at \S+/) {$$stats{"rejrbl"}++;
+			  } elsif ($line =~ /rejected because .* is in a black list at/) {$$stats{"rejrbl"}++;
 			  } elsif ($line =~ /rejected RCPT.*: found in/) {$$stats{"rejrbl"}++;
 			  } elsif ($line =~ /rejected RCPT/) {$$stats{"rcptreject"}++;
 			  }
@@ -255,15 +255,15 @@ sub read_log
 			  } elsif ($line =~ /^Spam Checks: Found ([0-9]+) spam messages/) {$$stats{"spam"}++;
 			  } elsif ($line =~ /Spam/) {$$stats{"spam"}++;
 			  } elsif ($line =~ /\bspam_status\=(?:yes|spam)/) {$$stats{"spam"}++;
-			  } elsif ($line =~ /^\([\w-]+\) (Passed|Blocked) SPAM(?:MY)?\b/) {$$stats{"spam"}++;
-			  } elsif ($line =~ /^\([\w-]+\) (Passed|Not-Delivered)\b.*\bquarantine spam/) {$$stats{"spam"}++;
+			  } elsif ($line =~ /(Passed|Blocked) SPAM(?:MY)?\b/) {$$stats{"spam"}++;
+			  } elsif ($line =~ /(Passed|Not-Delivered)\b.*\bquarantine spam/) {$$stats{"spam"}++;
 			  } elsif ($line =~ /\bcontains spam\b/) {$$stats{"spam"}++;
 			  } elsif ($line =~ /Blocked by SpamAssassin/) {$$stats{"spam"}++;
 			  } elsif ($line =~ /NOQUEUE: reject: .*: 554.* blocked using virbl.dnsbl.bit.nl/) {$$stats{"virus"}++;
 			  } elsif ($line =~ /Blocked INFECTED/) {$$stats{"virus"}++;
 			  } elsif ($line =~ /(Virus Scanning: Found)/) {$$stats{"virus"}++;
-			  } elsif ($line =~ /^\([\w-]+\) (Passed |Blocked )?INFECTED\b/) {$$stats{"virus"}++;
-			  } elsif ($line =~ /^\([\w-]+\) (Passed |Blocked )?BANNED\b/) {$$stats{"blacklisted"}++;
+			  } elsif ($line =~ /(Passed |Blocked )?INFECTED\b/) {$$stats{"virus"}++;
+			  } elsif ($line =~ /(Passed |Blocked )?BANNED\b/) {$$stats{"blacklisted"}++;
 			  } elsif ($line =~ /^Virus found\b/) {$$stats{"virus"}++;
 			  } elsif ($line =~ /^VIRUS/) {$$stats{"virus"}++;
 			  } elsif ($line =~ /^\*+ Virus\b/) {$$stats{"virus"}++;
@@ -323,10 +323,10 @@ sub read_log
 			  } elsif ($line =~ /User unknown$/) {$$stats{"bounces"}++;
 			  } elsif ($line =~ /Milter: .* reject=55/) {$$stats{"rcptreject"}++;
 			  } elsif ($line =~ /Blocked by SpamAssassin/) {$$stats{"spam"}++;
-			  } elsif ($line =~ /^\([\w-]+\) (Passed|Blocked) SPAM(?:MY)?\b/) {$$stats{"spam"}++;
-			  } elsif ($line =~ /^\([\w-]+\) (Passed|Not-Delivered)\b.*\bquarantine spam/) {$$stats{"spam"}++;
-			  } elsif ($line =~ /^\([\w-]+\) (Passed |Blocked )?INFECTED\b/) {$$stats{"virus"}++;
-			  } elsif ($line =~ /^\([\w-]+\) (Passed |Blocked )?BANNED\b/) {$$stats{"blacklisted"}++;
+			  } elsif ($line =~ /(Passed|Blocked) SPAM(?:MY)?\b/) {$$stats{"spam"}++;
+			  } elsif ($line =~ /(Passed|Not-Delivered)\b.*\bquarantine spam/) {$$stats{"spam"}++;
+			  } elsif ($line =~ /(Passed |Blocked )?INFECTED\b/) {$$stats{"virus"}++;
+			  } elsif ($line =~ /(Passed |Blocked )?BANNED\b/) {$$stats{"blacklisted"}++;
 			  } elsif ($line =~ /milter=clamav-milter, quarantine=quarantined by clamav-milter/) {$$stats{"virus"}++;
 			  } elsif ($line =~ /AUTH=.*, relay=.*, authid=.*, mech=.*, bits=/) {$$stats{"authpass"}++;
 			  } elsif ($line =~ /235 2.0.0 OK Authenticated/) {$$stats{"authpass"}++;
@@ -353,7 +353,6 @@ sub read_log
 			  } elsif ($line =~ /^[0-9A-F]+: virus/) {$$stats{"virus"}++;
 			  } elsif ($line =~ /infected/) {$$stats{"virus"}++;
 			  } elsif ($line =~ /Virus/) {$$stats{"virus"}++;
-			  } elsif ($line =~ /Virus Scanning: Found/) {$$stats{"virus"}++;
 			  } elsif ($line =~ /contains spam/) {$$stats{"spam"}++;
 			  } elsif ($line =~ /^(?:spamd: )?identified spam/) {$$stats{"spam"}++;
 			  } elsif ($line =~ /spam detected from/) {$$stats{"spam"}++;
