@@ -66,6 +66,7 @@ wget -O $OPENNMS_HOME/snmp-graph.properties.d/mailstats-graph.properties https:/
 - Find more log samples and integrate the missing regexp.
 - Implementation of IMAP(S)/POP3(S) statistics collections for Dovecot 1.x/2.x, Courier, Cyrus, Zarafa Gateway.
 - More tests ...
+- A new screenshot up to date for the wiki page
 
 ## Contribution
 This script makes sense if people using it add more and more regexp to fit their needs.
