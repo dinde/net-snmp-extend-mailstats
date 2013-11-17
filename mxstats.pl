@@ -99,13 +99,13 @@ $stats{"authfail"} = 0;           #.14 Authentication failed for account
 $stats{"authpass"} = 0;           #.15 Failed SMTP auth sessions
 $stats{"spam"} = 0;               #.16 reported spam by Scanner
 $stats{"virus"} = 0;              #.17 reported virus by Scanner
-$stats{"dkimsuccess"} = 0;	  #.18 DKIM succeeded
-$stats{"dkimfail"} = 0;		  #.19 DKIM failed/invalid
+$stats{"dkimsuccess"} = 0;        #.18 DKIM succeeded
+$stats{"dkimfail"} = 0;	          #.19 DKIM failed/invalid
 $stats{"dkimsigned"} = 0;         #.20 DKIM signed sent mail
-$stats{"rejrbl"} = 0;		  #.21 Found in RBL
+$stats{"rejrbl"} = 0;             #.21 Found in RBL
 $stats{"greylistdefer"} = 0;      #.22 Greylist defer
-$stats{"spfpass"} = 0;		  #.23 SPF pass
-$stats{"spfneutral"} = 0;	  #.24 SPF neutral
+$stats{"spfpass"} = 0;            #.23 SPF pass
+$stats{"spfneutral"} = 0;         #.24 SPF neutral
 $stats{"spffailed"} = 0;	  #.25 SPF failed
 
 # see if we can seek to current position in the mainlog. If not, then
