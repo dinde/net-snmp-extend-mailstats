@@ -55,8 +55,9 @@ There is 2 flavours of datacollection file.
 * mailstats-gauge.xml which uses a gauge and need the cron to be sync with your  data collection time (example: rrdstep 300 = 5mn = cron 5mn)
 * mailstats-counter.xml which uses a counter64 instead and does not need any sync on cron.
 - 1/ Download datacollection file to your opennms folder:
-wget -O $OPENNMS_HOME/datacollection/mailstats.xml https://raw.github.com/dinde/snmp-extend-mxstats/master/opennms/datacollection/mailstats.xml
-
+wget -O $OPENNMS_HOME/datacollection/mailstats.xml https://raw.github.com/dinde/snmp-extend-mxstats/master/opennms/datacollection/mailstats-gauge.xml
+or
+wget -O $OPENNMS_HOME/datacollection/mailstats.xml https://raw.github.com/dinde/snmp-extend-mxstats/master/opennms/datacollection/mailstats-counter.xml
 - 2/ Edit your datacollection-config.xml and Add:
         <include-collection dataCollectionGroup="Mailstats"/>
 
