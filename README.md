@@ -51,14 +51,17 @@ extend .1.3.6.1.4.1.2021.13.69 mx-stats /bin/cat /var/tmp/mxstats
 snmpwalk -v2c -c public YOUR.SERVER.TLD .1.3.6.1.4.1.2021.13.69
 
 ## Installation of Opennms files
+There is 2 flavours of datacollection file.
+* mailstats-gauge.xml which uses a gauge and need the cron to be sync with your  data collection time (example: rrdstep 300 = 5mn = cron 5mn)
+* mailstats-counter.xml which uses a counter64 instead and does not need any sync on cron.
 - 1/ Download datacollection file to your opennms folder:
-wget -O $OPENNMS_HOME/datacollection/mailstats.xml https://raw.github.com/dinde/snmp-extend-mxstats/master/opennms/mailstats.xml
+wget -O $OPENNMS_HOME/datacollection/mailstats.xml https://raw.github.com/dinde/snmp-extend-mxstats/master/opennms/datacollection/mailstats.xml
 
 - 2/ Edit your datacollection-config.xml and Add:
         <include-collection dataCollectionGroup="Mailstats"/>
 
 - 3/ Download graphs definitions to your opennms folder:
-wget -O $OPENNMS_HOME/snmp-graph.properties.d/mailstats-graph.properties https://raw.github.com/dinde/snmp-extend-mxstats/master/opennms/mailstats-graph.properties
+wget -O $OPENNMS_HOME/snmp-graph.properties.d/mailstats-graph.properties https://raw.github.com/dinde/snmp-extend-mxstats/master/opennms/snmp-graph.properties.d/mailstats-graph.properties
 
 - 4/ Restart Opennms, rescan the node where the script run and enjoy the new graphs on "Node-level Performance Data"
 
