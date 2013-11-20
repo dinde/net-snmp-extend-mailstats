@@ -233,7 +233,7 @@ sub read_log
 			  } elsif ($line =~ /535 Incorrect authentication data/) {$$stats{"authfail"}++;
 			  } elsif ($line =~ /A=fixed_login/) {$$stats{"authpass"}++;
 			  } elsif ($line =~ /unexpected disconnection/) {$$stats{"unexpectdisconnect"}++;
-			  } elsif ($line =~ /554 5\.7\.1/) {$$stats{"blacklisted"}++;
+			  } elsif ($line =~ /554 5\./) {$$stats{"blacklisted"}++;
 			  } elsif ($line =~ /Sender verify failed/) {$$stats{"senderverifyfail"}++;
 			  } elsif ($line =~ /remote_smtp/) {$$stats{"remotesmtp"}++;
 			  } elsif ($line =~ /rejected because .* is in a black list at/) {$$stats{"rejrbl"}++;
