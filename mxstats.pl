@@ -40,6 +40,8 @@ use strict;
 #my $mta = "exim";
 #my $mainlog = "/var/log/exim4/mainlog";
 #my $mainlogold = "/var/log/exim4/mainlog.1";
+#my $popimaplog = "/var/log/mail.log";
+#my $popimaplogold "/var/log/mail.log.1";
 # Postfix example
 my $mta = "postfix";
 my $mainlog = "/var/log/mail.log";
@@ -47,6 +49,7 @@ my $mainlogold = "/var/log/mail.log.1";
 
 # States/Logs files
 my $conf = "/var/run/mxstats-current-state";
+my $confpopimap = "/var/run/popimap-current-state";
 my $statsfile = "/var/tmp/mxstats";
 my $archive = "/var/log/mxstats";
 
@@ -83,6 +86,31 @@ if (-r $conf) {
   }
   close CONF;
 }
+
+# Exim is on separate log from imap pop, so let's basicly do the same than above.
+if ($mta =~ /^exim/) {
+	my $seekbis = 0;
+	my $inodebis = inodebis_number($popimaplog);
+	my $cantseekbis = 0;
+
+	if (-r $confpopimap) {
+	  open CONFPOPIMAP, "< $confpopimap";
+	  while (<CONFPOPIMAP>) {
+	    chomp;
+	    s/^\s*//;
+	    s/\s*$//;
+	    next if /^$/;
+	    if (/^inodebis=(\d+)$/) {
+	      $inodebis = $1;
+	    }
+	    if (/^seekbis=(.*)$/) {
+	      $seekbis = $1;
+	    }
+	  }
+	close CONFPOPIMAP;
+	}
+}
+
 # .1.3.6.1.4.1.2021.13.69
 $stats{"in"} = 0;                 #.01 in
 $stats{"out"} = 0;                #.02 out
@@ -109,10 +137,19 @@ $stats{"greylistdefer"} = 0;      #.22 Greylist defer
 $stats{"spfpass"} = 0;            #.23 SPF pass
 $stats{"spfneutral"} = 0;         #.24 SPF neutral
 $stats{"spffailed"} = 0;	  #.25 SPF failed
-
+	#.26 IMAP(S) Login Failed
+	#.27 IMAP(S) Login Success
+	#.28 IMAP(S) Active Connex (netstat ?)
+	#.29 IMAP(S) Max Threads (config)
+	#.30 IMAP(S) Active Threads (ps ?)
+	#.31 POP(S) Login Failed
+	#.32 POP(S) Login Success
+	#.33 POP(S) Active Connex
+	#.34 POP(S) Max Threads (config)
+	#.35 POP(S) Active Threads (ps ?)
 # see if we can seek to current position in the mainlog. If not, then
 # it has most likely been rotated
-open LOG, "< $mainlog" or die "cannot open exim log file $mainlog!";
+open LOG, "< $mainlog" or die "cannot open log file: $mainlog!";
 if (!seek(LOG, $seek, 0)) {
   $cantseek = 1;
 }
@@ -145,6 +182,8 @@ close CONF;
 if (defined $archive and $archive ne "" and -d $archive) {
 	  write_stats($archive."/".now_time(), \%stats);
 }
+
+# TODO: if mta exim we do the same than above for the second log file
 
 exit;
 
@@ -304,6 +343,7 @@ sub read_log
 			  } elsif ($line =~ /NOQUEUE: reject: .* Recipient address rejected:/) {$$stats{"rcptreject"}++;
 			  } elsif ($line =~ /NOQUEUE: reject: .* 554 5\.7\.1/) {$$stats{"blacklisted"}++;
 			  }
+			  # TODO: Add the regexp for courier imap/pop dovecot zarafa-gateway (zimbra ?)
 		  } elsif ($mta =~ /^sendmail/) {
 			  if ($line =~ /Greylisting in action/) {$$stats{"greylistdefer"}++;
 			  } elsif ($line =~ /^([^:\s]+): to=.*, delay=.* stat=queued/) {$$stats{"queued"}++;
@@ -368,6 +408,7 @@ sub read_log
 			  } elsif ($line =~ /mailer=/) {$$stats{"in"}++;
 			  } elsif ($line =~ /stat=Sent/) {$$stats{"out"}++;
 			  }
+			  # TODO: Add the regexp for courier imap/pop dovecot zarafa-gateway (zimbra ?)
 		  }
 	  }	
 	  $prevline = $line;
@@ -381,6 +422,9 @@ sub read_log
   return $prevpos;
 }
 
+# TODO: if mta exim Create the same parser than above for the second log file (imap/pop)
+
+# TODO: Get with ps & netstats threads/conex status
 sub read_queue
 {
 	if ($mta =~ /^exim/) {
