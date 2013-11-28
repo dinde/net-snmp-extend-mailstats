@@ -19,6 +19,8 @@ use strict;
 # $conf is where to store the current state file.
 # $statsfile is the file that contains the current data.
 # $archive is a directory. If it exists then old data is written there too.
+# $popimaplog is the file that contains POP/IMAP logs.
+# $popimaplogold is the last rotated file that contains POP/IMAP logs.
 
 # Select your MTA and the log files to be parsed
 # Exim example
@@ -31,6 +33,8 @@ use strict;
 my $mta = "postfix";
 my $mainlog = "/var/log/mail.log";
 my $mainlogold = "/var/log/mail.log.1";
+# Sendmail example
+# TODO
 
 # States/Logs files
 my $conf = "/var/run/mxstats-current-state";
