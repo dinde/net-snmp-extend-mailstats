@@ -10,30 +10,15 @@
 # Date: 14/11/2013: Release 1
 # Version: 1.1
 ## 
-# This program is free software; you can redistribute it and/or
-# modify it under the terms of the GNU General Public License as
-# published by the Free Software Foundation; either version 2 of
-# the License, or (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public
-# License along with this program; if not, write to the Free
-# Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-# Boston, MA 02110-1301, USA.
 use strict;
-# Options to set up here.
-#
+
+## Options to set up here.
 # $mta is the used mta to get statistics from. (postfix/sendmail/exim/)
 # $maillog is the latest Exim main log.
 # $mainlogold is the last rotated out main log.
 # $conf is where to store the current state file.
 # $statsfile is the file that contains the current data.
-# $archive is a directory. If it exists then old data is written
-#          there, too.
+# $archive is a directory. If it exists then old data is written there too.
 
 # Select your MTA and the log files to be parsed
 # Exim example
@@ -53,19 +38,11 @@ my $confpopimap = "/var/run/popimap-current-state";
 my $statsfile = "/var/tmp/mxstats";
 my $archive = "/var/log/mxstats";
 
-# The regular expressions will need tweaking below, especially the
-# IP addresses that determine local or remote. This should be
-# moved to a configuration file some day.
-
-
 # read conf file of when last run and where we got to
-
 my %stats = ();
 
 # set some defaults. If the current-state file does not exist, lets
 # start searching through the current mainlog from the beginning.
-# Maybe in this case we should really just set $seek to be the last
-# position in the file so that the beginning stats are not large?
 my $seek = 0;
 my $inode = inode_number($mainlog);
 my $cantseek = 0;
@@ -147,6 +124,7 @@ $stats{"spffailed"} = 0;	  #.25 SPF failed
 	#.33 POP(S) Active Connex
 	#.34 POP(S) Max Threads (config)
 	#.35 POP(S) Active Threads (ps ?)
+
 # see if we can seek to current position in the mainlog. If not, then
 # it has most likely been rotated
 open LOG, "< $mainlog" or die "cannot open log file: $mainlog!";
@@ -156,8 +134,8 @@ if (!seek(LOG, $seek, 0)) {
 close LOG;
 
 if ($inode != inode_number($mainlog) or
-    $cantseek or
-    $inode == inode_number($mainlogold)) {
+  $cantseek or
+  $inode == inode_number($mainlogold)) {
   # we have changed to a new log file; read the previous mainlog first
   read_log($mainlogold, $seek, \%stats);
   $inode = inode_number($mainlog);
@@ -167,8 +145,8 @@ if ($inode != inode_number($mainlog) or
 $seek = read_log($mainlog, $seek, \%stats);
 
 if (!read_queue(\%stats)) {
-	  $stats{"queued"} = -1;
-	  $stats{"bounces"} = -1;
+  $stats{"queued"} = -1;
+  $stats{"bounces"} = -1;
 }
 
 write_stats($statsfile, \%stats);
