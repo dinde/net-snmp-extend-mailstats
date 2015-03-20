@@ -6,7 +6,7 @@
 #
 # Based on a script by Matthew Newton
 ##
-# Modified by: David "Dinde" OH <david@ows.fr> - http://www.owns.fr
+# Modified by: David "Dinde" <kayser@euroserv.com>
 # Date: 14/11/2013: Release 1
 # Version: 1.1
 ## 
