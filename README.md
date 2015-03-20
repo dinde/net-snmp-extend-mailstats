@@ -1,6 +1,6 @@
 snmp-extend-mxstats
 ===================
-* Version: 1.x-beta3-rc1 - David "Dinde" OH <david@ows.fr> 17/11/2013
+* Version: 1.x-beta3-rc1 - David "Dinde" <kayser@euroserv.com> 17/11/2013
 
 Script to provide a snmp extend with statistics for Exim/Postfix/Sendmail and many scanners (Virus/Spam) supporting DKIM/SPF/Greylist.
 
